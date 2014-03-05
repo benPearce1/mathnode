@@ -20,26 +20,27 @@ $(document).ready(function () {
 
 		});
 	};
-
+	$('#imagerow').hide();
 	var viewModel = new ProblemViewModel();
 	ko.applyBindings(viewModel);
 
 	$('#additionbtn').click(function () {
 		type = "add";
-		$('#correct').hide();
+		
 		$('#message').hide();
 		getNewProblem(type, viewModel);
 		
 		$('#problem').show("slow");
+		$('#imagerow').show();
 		$('#answer').focus();
 	});
 
 	$('#answer').keydown(function (e) {
 		console.log('key pressed: ' + e.keyCode)
 		if (e.keyCode == 13) {
+			$('#correct').hide();
 			var problemSection = $('#problem');
 			problemSection.hide(function () {
-				console.log('hide completed');
 				getNewProblem(type, viewModel);
 				problemSection.show("slow");
 				$('#answer').focus();
