@@ -4,6 +4,12 @@ $(document).ready(function () {
 	var timer = 0;
 	var type = "";
 
+	$('#imagerow').hide();
+	
+	function ProblemSetViewModel() {
+		
+	};
+
 	function ProblemViewModel() {
 		var self = this;
 		self.number1 = ko.observable();
@@ -20,45 +26,42 @@ $(document).ready(function () {
 
 		});
 	};
-	$('#imagerow').hide();
+	
 	var viewModel = new ProblemViewModel();
-	ko.applyBindings(viewModel);
-
+	
 	$('#additionbtn').click(function () {
 		type = "add";
-		
-		$('#message').hide();
 		getNewProblem(type, viewModel);
-		
-		$('#problem').show("slow");
-		$('#imagerow').show();
-		$('#answer').focus();
 	});
 
 	$('#answer').keydown(function (e) {
 		console.log('key pressed: ' + e.keyCode)
 		if (e.keyCode == 13) {
 			$('#correct').hide();
-			var problemSection = $('#problem');
-			problemSection.hide(function () {
-				getNewProblem(type, viewModel);
-				problemSection.show("slow");
-				$('#answer').focus();
-			});
-
+			getNewProblem(type, viewModel);
 		}
 	});
+
+	ko.applyBindings(viewModel);
 });
 
 function getNewProblem(type, viewModel)
 {
-	$.getJSON(type, function (data) {
+	$('#message').hide();
+	var problemSection = $('#problem');
+	problemSection.hide(function() {
+		$.getJSON(type, function (data) {
 			viewModel.number1(data.number1);
 			viewModel.number2(data.number2);
 			viewModel.answer(data.answer);
 			viewModel.useranswer('');
 			viewModel.operator(data.operator);
-		});
+
+			problemSection.show("slow");
+			$('#imagerow').show();
+			$('#answer').focus();
+		});	
+	});
 }
 
 function subtraction()
