@@ -2,23 +2,27 @@ extends layout
 
 block content
 	div(class='container-fluid' )
-		div(id='problem' class='row text-center' style='display: none' )
-			div(class='answer-body' style='margin:10px')
-				h1(id='number1' data-bind='text: number1')
-			div(class='answer-body' style='margin:10px')
-				h1(id='operator' data-bind='text: operator')
-			div(class='answer-body' style='margin:10px')
-				h1(id='number2' data-bind='text: number2')
-			div(class='answer-body' style='margin:10px')
-				h1 =
-			div(class='answer-body' style='margin:10px')
-				input(type='text' id='answer' data-bind='value: useranswer, valueUpdate: "keyup"')
+		div(id='problem' class='row ' style='display: none' )
+			div(class='row text-center')
+				h4 Press enter for next problem
+			div(class='row text-center')
+				div(class='answer-body' style='margin:10px')
+					h1(id='number1' data-bind='text: number1')
+				div(class='answer-body' style='margin:10px')
+					h1(id='operator' data-bind='text: operator')
+				div(class='answer-body' style='margin:10px')
+					h1(id='number2' data-bind='text: number2')
+				div(class='answer-body' style='margin:10px')
+					h1 =
+				div(class='answer-body' style='margin:10px')
+					input(type='text' id='answer' data-bind='value: useranswer, valueUpdate: "keyup"')
 		div(class='row text-center' id='imagerow')
 			div(class='answer-body' )
 				div(id='correct' data-bind='visible: correct')
 					img(src='images/greentick.jpg')
 
 	div(id='message')
+		h1(class='text-center') Hello Will and Madeline
 		h1(class='text-center') Click 'Addition' to start
 			
 	script(src='/js/jquery-2.1.0.min.js')
