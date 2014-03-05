@@ -29,7 +29,6 @@ $(document).ready(function () {
 		$('#correct').hide();
 		$('#message').hide();
 		getNewProblem(type, viewModel);
-
 		
 		$('#problem').show("slow");
 		$('#answer').focus();
