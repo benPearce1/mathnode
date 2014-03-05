@@ -4,8 +4,6 @@ block content
 	div(class='container-fluid' )
 		div(id='problem' class='row ' style='display: none' )
 			div(class='row text-center')
-				h4 Press enter for next problem
-			div(class='row text-center')
 				div(class='answer-body' style='margin:10px')
 					h1(id='number1' data-bind='text: number1')
 				div(class='answer-body' style='margin:10px')
@@ -19,6 +17,7 @@ block content
 		div(class='row text-center' id='imagerow')
 			div(class='answer-body' )
 				div(id='correct' data-bind='visible: correct')
+					h4 Press enter for next problem
 					img(src='images/greentick.jpg')
 
 	div(id='message')
