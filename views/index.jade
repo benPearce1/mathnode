@@ -1,7 +1,26 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	button(class='btn btn-primary') Button
-	button(class='btn btn-primary') Button
+	div(class='container-fluid' )
+		div(id='problem' class='row text-center' style='display: none' )
+			div(class='answer-body' style='margin:10px')
+				h1(id='number1' data-bind='text: number1')
+			div(class='answer-body' style='margin:10px')
+				h1(id='operator' data-bind='text: operator')
+			div(class='answer-body' style='margin:10px')
+				h1(id='number2' data-bind='text: number2')
+			div(class='answer-body' style='margin:10px')
+				h1 =
+			div(class='answer-body' style='margin:10px')
+				input(type='text' id='answer' data-bind='value: useranswer, valueUpdate: "keyup"')
+			div(class='answer-body' style='margin-top:-10px')
+				div(id='correct' data-bind='visible: correct')
+					img(src='images/greentick.jpg')
+
+	div(id='message')
+		h1(class='text-center') Message text
+			
+	script(src='/js/jquery-2.1.0.min.js')
+	script(src='/bootstrap/js/bootstrap.min.js')
+	script(src='/js/knockout-3.0.0.debug.js')
+	script(src='/js/core.js')
