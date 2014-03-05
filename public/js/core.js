@@ -26,9 +26,11 @@ $(document).ready(function () {
 
 	$('#additionbtn').click(function () {
 		type = "add";
+		$('#correct').hide();
 		$('#message').hide();
 		getNewProblem(type, viewModel);
 
+		
 		$('#problem').show("slow");
 		$('#answer').focus();
 	});
