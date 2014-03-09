@@ -5,7 +5,10 @@ exports.getPair = function (min, max) {
 	while (!success) {
 		number1 = getRandomNumber(min, max);
 		number2 = getRandomNumber(min, max);
-		success = true;
+
+		if(number1 > 0 || number2 > 0){
+			success = true;	
+		}
 	}
 
 	return { number1: number1, number2: number2 };
