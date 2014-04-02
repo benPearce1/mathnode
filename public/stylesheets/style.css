@@ -8,6 +8,12 @@ a {
 }
 
 .answer-body {
-	display: inline-block;
-	
+	display: inline-block;	
+}
+
+#problemsetstatus {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }

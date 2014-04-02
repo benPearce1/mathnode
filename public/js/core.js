@@ -29,7 +29,7 @@ $(document).ready(function () {
 		});
 		self.imageUrl = ko.computed(function() {
 			if (!self.attempted()) {
-				url = "images/blank.png";
+				url = "images/current.png";
 			} else if (self.correct()) {
 				url = "images/correct.png";
 			} else if (self.incorrect()) {
@@ -86,9 +86,19 @@ $(document).ready(function () {
 		};
 		self.clear = function(){
 			self.set.removeAll();
+			self.startTime(new Date());
 		};
 		self.current = ko.observable();
 		self.currentCount = ko.observable(0);
+		self.startTime = ko.observable(moment());
+		self.elapsedTime = ko.computed(function(){
+			if (self.finished()) {
+				end = moment();
+				return end.preciseDiff(self.startTime());
+ 			};
+		});
+		self.finished = ko.observable(false);
+		};
 	};
 
 	$('#additionbtn').on('click', function () {
@@ -102,6 +112,9 @@ $(document).ready(function () {
 		getNextProblem(type, viewModelSet);
 	});
 
+	$('#startagain').click(function() { 
+		getNewProblemSet();
+	});
 
 	viewModelSet = new ProblemSetViewModel();
 	ko.applyBindings(viewModelSet);
@@ -110,22 +123,20 @@ $(document).ready(function () {
 function getNextProblem(type, viewModelSet)
 {
 	$('#message').hide();
-	var problemSection = $('#problem');
-	problemSection.hide();
+	$('#problem').hide();
 	var setLength = viewModelSet.set().length;
-	if(setLength == 0 || viewModelSet.currentCount() > setLength - 1) {
+	if(setLength == 0) {
 		getNewProblemSet(type, viewModelSet, function() {
 			moveToNextProblem(type, viewModelSet);
-			problemSection.show("slow");
-			$('#imagerow').show();
-			$('#answer').focus();
 		});
+	}
+	else if (viewModelSet.currentCount() > setLength - 1) {
+		viewModelSet.current().finished();
+		$('#problemset').hide();
+		$('#review').show();
 	}
 	else {
 		moveToNextProblem(type, viewModelSet);
-		problemSection.show("slow");
-		$('#imagerow').show();
-		$('#answer').focus();
 	}
 }
 
@@ -141,16 +152,22 @@ function moveToNextProblem(type, viewModelSet) {
 	viewModelSet.currentCount(viewModelSet.currentCount() + 1);
 	viewModelSet.current().isCurrent(true);
 	console.log('setting current problem to ' + viewModelSet.current().toString());
+	$('#problem').show("slow");
+	$('#imagerow').show();
+	$('#answer').focus();
 } 
 
 function getNewProblemSet(type, viewModel, callback)
 {
 	$.getJSON(type + '?c=5', function (data) {
+		console.log(viewModelSet.startTime());
+		console.log(viewModelSet.elapsedTime());
 		viewModel.clear();
 		for (var i in data) {
 			viewModel.add(data[i].number1, data[i].number2, data[i].operator, data[i].answer);
 		}
 		console.log('got ' + data.length + ' problems');
+
 		viewModel.currentCount(0);
 		callback();
 	});

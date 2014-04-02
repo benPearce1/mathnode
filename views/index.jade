@@ -3,8 +3,6 @@ extends layout
 block content
 	div(class='container-fluid')
 		div(id='problemset' class='row' style='display: none' data-bind='with: current')
-			div(data-bind='foreach: $parent.set')
-				img(width='64' height='64' data-bind='attr:{src:imageUrl}')
 			div(class='row text-center' id='problem')
 				span(class='answer-body' style='margin:10px')
 					h1(id='number1' data-bind='text: number1')
@@ -22,12 +20,28 @@ block content
 			div(class='row text-center' id='imagerow')
 				div(class='answer-body' )
 					h4 Press enter for next problem
-					
 
-	
-	
-	
+			div(data-bind='foreach: $parent.set' align='text-center' id='problemsetstatus')
+				img(width='64' height='64' data-bind='attr:{src:imageUrl}')
 
+	div(id='review' class='row' style='display: none')
+		h2 Total time: 
+		h2(data-bind='text: elapsedTime')
+		div(data-bind='foreach: set')
+			span(class='answer-body' style='margin:10px')
+				h1(data-bind='text: number1')
+			span(class='answer-body' style='margin:10px')
+				h1( data-bind='text: operator')
+			span(class='answer-body' style='margin:10px')
+				h1(data-bind='text: number2')
+			span(class='answer-body' style='margin:10px')
+				h1 =
+			span(class='answer-body')
+				h1(data-bind='text: answer')
+			span(id='image')
+				img(width='32' height='32' data-bind='attr: { src: imageUrl }')
+		div
+			input(type='button' class='btn' id='startagain') Start again
 
 	div(id='message')
 		h1(class='text-center') Hello Will and Madeline
@@ -36,4 +50,6 @@ block content
 	script(src='/js/jquery-2.1.0.min.js')
 	script(src='/bootstrap/js/bootstrap.min.js')
 	script(src='/js/knockout-3.0.0.debug.js')
+	script(src='/js/momemnt.js')
+	script(src='/js/readable-range.js')
 	script(src='/js/core.js')
