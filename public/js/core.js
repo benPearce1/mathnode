@@ -86,39 +86,50 @@ $(document).ready(function () {
 		};
 		self.clear = function(){
 			self.set.removeAll();
-			self.startTime(new Date());
+			self.startTime(moment());
+			self.calculateElapsed();
 		};
 		self.current = ko.observable();
 		self.currentCount = ko.observable(0);
 		self.startTime = ko.observable(moment());
-		self.elapsedTime = ko.computed(function(){
-			if (self.finished()) {
-				end = moment();
-				return end.preciseDiff(self.startTime());
- 			};
-		});
-		self.finished = ko.observable(false);
+		self.elapsedTime = ko.observable();
+		self.calculateElapsed = function(){
+			// end = moment();
+			// time = moment.preciseDiff(end, self.startTime());
+			// console.log(time);
+			// self.elapsedTime(time());
 		};
+		self.finished = false;
 	};
 
 	$('#additionbtn').on('click', function () {
 		type = "add";
-		getNextProblem(type, viewModelSet);
-		$('#problemset').show();
+		restart(type, viewModelSet);
 	});
 
 	$('#subtractbtn').click(function () {
 		type = "sub";
-		getNextProblem(type, viewModelSet);
+		restart(type, viewModelSet);
+	});
+
+	$('#multplicationbtn').click(function () {
+		type = 'mult';
+		restart(type, viewModelSet);
 	});
 
 	$('#startagain').click(function() { 
-		getNewProblemSet();
+		restart(type, viewModelSet);
 	});
 
 	viewModelSet = new ProblemSetViewModel();
 	ko.applyBindings(viewModelSet);
 });
+
+function restart(type,viewModelSet) {
+	viewModelSet.clear();
+	getNextProblem(type,viewModelSet);
+	$('#problemset').show();
+}	
 
 function getNextProblem(type, viewModelSet)
 {
@@ -131,9 +142,12 @@ function getNextProblem(type, viewModelSet)
 		});
 	}
 	else if (viewModelSet.currentCount() > setLength - 1) {
-		viewModelSet.current().finished();
-		$('#problemset').hide();
-		$('#review').show();
+		// viewModelSet.current().finished = true;
+		// $('#problemset').hide();
+		// $('#review').show();
+		getNewProblemSet(type, viewModelSet, function() {
+			moveToNextProblem(type, viewModelSet);
+		});
 	}
 	else {
 		moveToNextProblem(type, viewModelSet);
@@ -141,6 +155,7 @@ function getNextProblem(type, viewModelSet)
 }
 
 function moveToNextProblem(type, viewModelSet) {
+	viewModelSet.calculateElapsed();
 	if(viewModelSet.currentCount >= viewModelSet.set().length) {
 		viewModelSet.currentCount(0);
 	}

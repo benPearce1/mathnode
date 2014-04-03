@@ -16,6 +16,7 @@ block content
 					input(type='text' id='answer' data-bind='value: useranswer, valueUpdate: "keyup", enterKey: nextProblem')
 				span(id='image')
 					img(width='64' height='64' data-bind='attr:{src:imageUrl}')
+				span(data-bind='text: $parent.elapsedTime')
 				
 			div(class='row text-center' id='imagerow')
 				div(class='answer-body' )
@@ -40,8 +41,8 @@ block content
 				h1(data-bind='text: answer')
 			span(id='image')
 				img(width='32' height='32' data-bind='attr: { src: imageUrl }')
-		div
-			input(type='button' class='btn' id='startagain') Start again
+		//div
+			//input(type='button' class='btn' id='startagain') Start again
 
 	div(id='message')
 		h1(class='text-center') Hello Will and Madeline
@@ -50,6 +51,6 @@ block content
 	script(src='/js/jquery-2.1.0.min.js')
 	script(src='/bootstrap/js/bootstrap.min.js')
 	script(src='/js/knockout-3.0.0.debug.js')
-	script(src='/js/momemnt.js')
+	script(src='/js/moment.min.js')
 	script(src='/js/readable-range.js')
 	script(src='/js/core.js')

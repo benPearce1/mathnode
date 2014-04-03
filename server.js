@@ -7,6 +7,8 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , add = require('./routes/add')
+  , sub = require('./routes/sub')
+  , mult = require('./routes/mult')
   , test = require('./routes/test')
   , http = require('http')
   , path = require('path');
@@ -32,6 +34,8 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/add', add.index);
+app.get('/sub', sub.index);
+app.get('/mult', mult.index);
 app.get('/test', test.index);
 app.get('/tests.js', test.tests);
 console.log(app.get('port'));

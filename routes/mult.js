@@ -14,10 +14,11 @@ exports.index = function (req, res) {
 		numberSet.push({
 			number1: numbers.number1,
 			number2: numbers.number2,
-			answer: numbers.number1 - numbers.number2,
-			operator: '-'
+			answer: numbers.number1 * numbers.number2,
+			operator: 'x'
 		});
 	}
-	
+
+	res
 	res.json(numberSet);
 };
