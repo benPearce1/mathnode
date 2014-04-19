@@ -2,8 +2,12 @@ extends layout
 
 block content
 	div(class='container-fluid')
-		div(id='problemset' class='row' style='display: none' data-bind='with: current')
-			div(class='row text-center' id='problem')
+		div(id='complete' class='row' data-bind='visible: finished')
+			h2 Total time: 
+			h2(data-bind='text: elapsedTime')
+			//input(type='button' class='btn' id='startagain') Start again
+		div(id='problemset' class='row' style='display: none' data-bind='visible: finished')
+			div(class='row text-center' id='problem' data-bind='with: current')
 				span(class='answer-body' style='margin:10px')
 					h1(id='number1' data-bind='text: number1')
 				span(class='answer-body' style='margin:10px')
@@ -16,31 +20,30 @@ block content
 					input(type='text' id='answer' data-bind='value: useranswer, valueUpdate: "keyup", enterKey: nextProblem')
 				span(id='image')
 					img(width='64' height='64' data-bind='attr:{src:imageUrl}')
-				span(data-bind='text: $parent.elapsedTime')
 				
 			div(class='row text-center' id='imagerow')
 				div(class='answer-body' )
 					h4 Press enter for next problem
 
-			div(data-bind='foreach: $parent.set' align='text-center' id='problemsetstatus')
-				img(width='64' height='64' data-bind='attr:{src:imageUrl}')
+		div(id='setresults' data-bind='foreach: set' align='text-center')
+			img(width='64' height='64' data-bind='attr:{src:imageUrl}')
 
-	div(id='review' class='row' style='display: none')
-		h2 Total time: 
-		h2(data-bind='text: elapsedTime')
-		div(data-bind='foreach: set')
-			span(class='answer-body' style='margin:10px')
-				h1(data-bind='text: number1')
-			span(class='answer-body' style='margin:10px')
-				h1( data-bind='text: operator')
-			span(class='answer-body' style='margin:10px')
-				h1(data-bind='text: number2')
-			span(class='answer-body' style='margin:10px')
-				h1 =
-			span(class='answer-body')
-				h1(data-bind='text: answer')
-			span(id='image')
-				img(width='32' height='32' data-bind='attr: { src: imageUrl }')
+	//- div(id='review' class='row' style='display: none')
+	//- 	h2 Total time: 
+	//- 	h2(data-bind='text: elapsedTime')
+	//- 	div(data-bind='foreach: set')
+	//- 		span(class='answer-body' style='margin:10px')
+	//- 			h1(data-bind='text: number1')
+	//- 		span(class='answer-body' style='margin:10px')
+	//- 			h1( data-bind='text: operator')
+	//- 		span(class='answer-body' style='margin:10px')
+	//- 			h1(data-bind='text: number2')
+	//- 		span(class='answer-body' style='margin:10px')
+	//- 			h1 =
+	//- 		span(class='answer-body')
+	//- 			h1(data-bind='text: answer')
+	//- 		span(id='image')
+	//- 			img(width='32' height='32' data-bind='attr: { src: imageUrl }')
 		//div
 			//input(type='button' class='btn' id='startagain') Start again
 
